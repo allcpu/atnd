@@ -461,9 +461,7 @@ drawatt(tmparr);
 
 function editgms(){
    var xhttp = new XMLHttpRequest();
-   xhttp.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {var resp = xhttp.responseText;}};
-   xhttp.open("GET", ('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/.json'), true);
-   xhttp.send();
+   xhttp.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {var resp = xhttp.responseText;
    resp = resp.replace(/[|]/, "");
    var acpl = resp.split(",");
    var i=0, tmpstr='';
@@ -483,6 +481,9 @@ function editgms(){
 	 }
 	 i++;
    }
+   }};								  
+   xhttp.open("GET", ('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/.json'), true);
+   xhttp.send();
    var xhttp = new XMLHttpRequest();
    xhttp.open("GET", ('https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/editMessageText?chat_id=-1001310291767&message_id='+msgid+'&text='+encodeURI(tmpstr)), true);
    xhttp.send();
