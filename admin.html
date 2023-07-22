@@ -152,9 +152,8 @@ table{
 </div>
 
 <button type="button" style="display:block;width:50%;background-color:red;font-family:monospace;font-size:20px;text-align:center;padding:8px;margin:auto;" onclick='swal({title: "Are you sure?",text: "It will start Attendance System",icon: "warning",buttons: true,dangerMode: true,}).then((value) => {if(value){swal({icon: "success",title:"Done",text:"Attendance System Started"});crtsht();}else{swal({title:"Cancelled Process",icon:"info"});}});'>Create Sheet</button>
-<button type="button" style="display:block;width:50%;background-color:red;font-family:monospace;font-size:20px;text-align:center;padding:8px;margin:auto;" onclick='endatts
-()'>End Attendance System</button>
-<button type="button" style="display:block;width:50%;background-color:aqua;font-family:monospace;font-size:20px;text-align:center;padding:8px;margin:auto;" onclick='sendimg(document.getElementById("finallook"))'>Send Attendance</button>
+<button type="button" style="display:block;width:50%;background-color:red;font-family:monospace;font-size:20px;text-align:center;padding:8px;margin:auto;margin-top:5px;" onclick='endatts()'>End Attendance System</button>
+<button type="button" style="display:block;width:50%;background-color:aqua;font-family:monospace;font-size:20px;text-align:center;padding:8px;margin:auto;margin-top:5px;" onclick='sendimg(document.getElementById("finallook"));'>Send Attendance</button>
 </div>
 <div id="help" style="display:none;">
 <div id="info"></div>
@@ -327,7 +326,7 @@ arrol=[];
 if(lv.includes("a1")){
 arrol.push([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]);
 studcon+=32;
-batches+='a1';
+batches+='a1s';
 }
 if(lv.includes("a2")){
 arrol.push([33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63]);
@@ -400,41 +399,39 @@ while(j<lv[2]){
 }
 var xhttp = new XMLHttpRequest();
 xhttp.responseType="json";
-xhttp.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){if(xhttp.response.room1=="no"){setroom=1;}else if(xhttp.response.room2=="no"){setroom=2;}else if(xhttp.response.room3=="no"){setroom=3;}else if(xhttp.response.room4=="no"){setroom=4;}}};
+xhttp.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){if(xhttp.response.room1=="no"){setroom=1;}else if(xhttp.response.room2=="no"){setroom=2;}else if(xhttp.response.room3=="no"){setroom=3;}else if(xhttp.response.room4=="no"){setroom=4;}}
+	fetch(('https://fitbeau-5606d.firebaseio.com/room/inuse/room'+setroom+'.json'), {method: 'put',headers: { 'Content-Type': 'application/json' },body: "yes"});
+	tmpstr='[';
+	for(item of copl){tmpstr+='"P",';}
+	tmpstr+=']';
+	fetch(('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/.json'), {method: 'PUT',headers: { 'Content-Type': 'application/json' },body: tmpstr});
+	
+	urlfs = encodeURI("https://allcpu.github.io/atnd/ats.html?"+setroom+"sss"+batches);
+	caption="Subject : "+document.getElementById("subji").value+"  Date : "+new Date().toLocaleDateString()+"  Time: "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value+"  Batches :"+bstr+"Roll No: "+rollary[0]+"-"+rollary[1]+"  Administered by: "+document.getElementById("facti").value+"\n"+urlfs;
+	var xhttp = new XMLHttpRequest();
+	xhttp.responseType = 'json';
+	//xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {msgid = this.response.result.message_id;}};
+	xhttp.open("GET", ("https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/sendmessage?chat_id=-1001310291767&text="+caption), true);
+	xhttp.send();
+	remain();
+};
 xhttp.open("GET", ("https://fitbeau-5606d.firebaseio.com/room/inuse/.json"), true);
 xhttp.send();
-fetch(('https://fitbeau-5606d.firebaseio.com/room/inuse/room'+setroom+'.json'), {method: 'put',headers: { 'Content-Type': 'application/json' },body: "yes"});
+}
+//drawatt(["many","a1","b1","c1"]);
 
-tmpstr='[';
-for(item of copl){tmpstr+='"P",';}
-tmpstr+=']';
-fetch(('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/.json'), {method: 'PUT',headers: { 'Content-Type': 'application/json' },body: tmpstr});
-
-urlfs = encodeURI("https://allcpu.github.io/atnd/ats.html?"+setroom+"sss"+batches);
-caption="Subject : "+document.getElementById("subji").value+"  Date : "+new Date().toLocaleDateString()+"  Time: "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value+"  Batches :"+bstr+"Roll No: "+rollary[0]+"-"+rollary[1]+"  Administered by: "+document.getElementById("facti").value+"\n"+urlfs;
+function remain(){
 var xhttp = new XMLHttpRequest();
 xhttp.responseType = 'json';
-//xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {msgid = this.response.result.message_id;}};
-xhttp.open("GET", ("https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/sendmessage?chat_id=-1001310291767&text="+urlfs), true);
-xhttp.send();
-
-var xhttp = new XMLHttpRequest();
-xhttp.responseType = 'json';
-xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {document.getElementById("msgidb").innerText=(this.response.result.message_id);}};
-xhttp.open("GET", ("https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/sendmessage?chat_id=-1001310291767&text=loading.."), true);
-xhttp.send();
+xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {document.getElementById("msgidb").innerText=(this.response.result.message_id);
 msgid = document.getElementById("msgidb").innerText;
 document.getElementById("help").style.display="block";
 document.getElementById("attbox").style.display="block";
 document.getElementById("atctrl").style.display="block";
-editgms();
-
-}
-//drawatt(["many","a1","b1","c1"]);
-
-function loaded(){
-//document.getElementById("bodya").style.display="block";
-//navigator.geolocation.getCurrentPosition(getlocation,function(error){swal("Permission Denied","Please allow or enable geolocation","warning").then((value) => {setTimeout(loaded, 1500)});});
+editgms();										       
+}};
+xhttp.open("GET", ("https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/sendmessage?chat_id=-1001310291767&text=loading.."), true);
+xhttp.send();
 }
 
 function crtsht(){
