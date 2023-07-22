@@ -198,6 +198,7 @@ table{
 <div style="height:1376px;width:1048px;" id="screenshot"></div>
 </div>
 </div>
+<div style="display:none;" id="msgidb"></div>
 <script>
 //https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/sendmessage?chat_id=-1001310291767&text=bye
 
@@ -420,10 +421,10 @@ xhttp.send();
 
 var xhttp = new XMLHttpRequest();
 xhttp.responseType = 'json';
-xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {msgid = this.response.result.message_id;}};
+xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {document.getElementById("msgidb").innerText=(this.response.result.message_id);}};
 xhttp.open("GET", ("https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/sendmessage?chat_id=-1001310291767&text=loading.."), true);
 xhttp.send();
-
+msgid = document.getElementById("msgidb").innerText;
 editgms();
 
 }
@@ -464,28 +465,22 @@ function editgms(){
    xhttp.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {var resp = xhttp.responseText;
    resp = resp.replace(/[|]/, "");
    var acpl = resp.split(",");
-   var i=0, tmpstr='';
+   var i=0, tmpstr1='🅰️ :', tmpstr2='\n🅿️ :';
    for (items of acpl){
-     if((i%3)==2){
-	    if(acpl[i]=='"A"'){
-		   tmpstr+=(copl[i]+ists+abem+nwls);
-		}else if(copl[i]=='"P"'){
-		   tmpstr+=(copl[i]+ists+prem+nwls);
-		}
-	 }else{
-	    if(acpl[i]=='"A"'){
-		   tmpstr+=(copl[i]+ists+abem+coms);
-		}else if(acpl[i]=='"P"'){
-		   tmpstr+=(copl[i]+ists+prem+coms);
-		}
-	 }
-	 i++;
+	if(acpl[i]=='"A"'){
+	   tmpstr1+=(" "+copl[i]+",");
+	}else if(acpl[i]=='"P"'){
+	   tmpstr2+=(" "+copl[i]+",");
+	}
+	i++;
    }
-   }};								  
+   tmpstr1.replace(/.$/,".");
+   tmpstr2.replace(/.$/,".");
+  };								  
    xhttp.open("GET", ('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/.json'), true);
    xhttp.send();
    var xhttp = new XMLHttpRequest();
-   xhttp.open("GET", ('https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/editMessageText?chat_id=-1001310291767&message_id='+msgid+'&text='+encodeURI(tmpstr)), true);
+   xhttp.open("GET", ('https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/editMessageText?chat_id=-1001310291767&message_id='+msgid+'&text='+encodeURI(tmpstr1+tmpstr2)), true);
    xhttp.send();
 }
 function endatts(){
