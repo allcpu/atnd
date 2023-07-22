@@ -427,7 +427,7 @@ xhttp.responseType = 'json';
 xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {document.getElementById("msgidb").innerText=(this.response.result.message_id);
 msgid = document.getElementById("msgidb").innerText;
 document.getElementById("help").style.display="block";
-document.getElementById("attbox").style.display="block";
+document.getElementById("attbox").style.display="flex";
 document.getElementById("atctrl").style.display="block";
 editgms();										       
 }};
