@@ -156,7 +156,7 @@ var attboxtbsf='<table class="main" onclick="onclk(event);"><thead><tr><td>Roll 
 
 function loaded(){
     //__github.io/____#juuuuuuuuuuuuuuuuuuu
-   var urlhsh = (window.location.herf.split("?")[1].split("sss");
+   var urlhsh = (window.location.herf.split("?")[1].split("sss"));
    document.getElementById("bodya").style.display="block";
    var lv = urlhsh[1].split("s");
    arrol=[];
@@ -194,7 +194,7 @@ arrol.push(221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,2
 studcon+=30;
 }
    var xhttp = new XMLHttpRequest();
-   xhttp.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {var resp = xhttp.responseText;}};
+   xhttp.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {var resp = xhttp.responseText;
    xhttp.open("GET", ('https://fitbeau-5606d.firebaseio.com/room/room'+urlhsh[0]+'/apcl/.json'), true);
    xhttp.send();
    resp = resp.replace(/[|]/, "");
@@ -211,6 +211,7 @@ studcon+=30;
 	  }
 	  i++;
    }
+   }};
 }
 
 /*
