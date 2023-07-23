@@ -409,9 +409,9 @@ while(j<lv[2]){
 	j=j+1;
 }
 }
-tmpstr='[';
+tmpstr='"["';
 for(item of copl){tmpstr+='"P",';}
-tmpstr+=']';
+tmpstr+='"]"';
 var xhttf = new XMLHttpRequest();
 xhttf.responseType="json";
 xhttf.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
@@ -434,7 +434,7 @@ xhttf.onreadystatechange = function(){if(this.readyState == 4 && this.status == 
 	xhtto.send(tmpstr);
 	}};
 	xhttt.open("PUT", ('https://fitbeau-5606d.firebaseio.com/room/inuse/room'+setroom+'.json'), true);
-	xhttt.send("yes");
+	xhttt.send('"yes"');
 }};
 xhttf.open("GET", ("https://fitbeau-5606d.firebaseio.com/room/inuse/.json"), true);
 xhttf.send();
