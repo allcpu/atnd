@@ -195,9 +195,8 @@ arrol.push(221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,2
 studcon+=30;
 }
    var xhttp = new XMLHttpRequest();
-   xhttp.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {var resp = xhttp.responseText;
-   xhttp.open("GET", ('https://fitbeau-5606d.firebaseio.com/room/room'+urlhsh[0]+'/apcl/.json'), true);
-   xhttp.send();
+   xhttp.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {
+   var resp = xhttp.responseText;
    resp = resp.replace(/[|]/, "");
    var acpl = resp.split(",");
    var i=0, item;
@@ -213,6 +212,8 @@ studcon+=30;
 	  i++;
    }
    }};
+   xhttp.open("GET", ('https://fitbeau-5606d.firebaseio.com/room/room'+urlhsh[0]+'/apcl/.json'), true);
+   xhttp.send();
 }
 
 /*
