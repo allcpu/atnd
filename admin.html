@@ -484,7 +484,7 @@ function editgms(){
    var respi = '';
    var xhttpe = new XMLHttpRequest();
    xhttpe.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {
-   var respe = xhttp.responseText;
+   var respe = xhttpe.responseText;
    respi = respe.replace(/[|]/, "");
    var acpl = respi.split(",");
    var i=0;
@@ -498,19 +498,21 @@ function editgms(){
    }
    tmpstr1.replace(/.$/,".");
    tmpstr2.replace(/.$/,".");
+   var xhttps = new XMLHttpRequest();
+   xhttps.open("GET", ('https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/editMessageText?chat_id=-1001310291767&message_id='+msgid+'&text='+encodeURI(tmpstr1+tmpstr2)), true);
+   xhttps.send();
   }};								  
-   xhttp.open("GET", ('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/.json'), true);
-   xhttp.send();
-   var xhttp = new XMLHttpRequest();
-   xhttp.open("GET", ('https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/editMessageText?chat_id=-1001310291767&message_id='+msgid+'&text='+encodeURI(tmpstr1+tmpstr2)), true);
-   xhttp.send();
+   xhttpe.open("GET", ('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/.json'), true);
+   xhttpe.send();
 }
 function endatts(){
-  editgms();
   var xhttm = new XMLHttpRequest();
+  xhttm.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {
+  editgms();
+  //fetch(('https://fitbeau-5606d.firebaseio.com/room/inuse/room'+setroom+'.json'), {method: 'put',headers: { 'Content-Type': 'application/json' },body: "no"});
+  }};
   xhttm.open("PUT", ('https://fitbeau-5606d.firebaseio.com/room/inuse/room'+setroom+'.json'), true);
   xhttm.send('no');
-  //fetch(('https://fitbeau-5606d.firebaseio.com/room/inuse/room'+setroom+'.json'), {method: 'put',headers: { 'Content-Type': 'application/json' },body: "no"});
 }
 addEventListener("beforeunload", endatts);
 
