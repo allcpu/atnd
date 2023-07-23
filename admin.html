@@ -231,7 +231,7 @@ function sendimg(id){
     type: "view",
   }).then(function (canvas) {
   if (!canvas) {
-    canvas.toBlob(function (blob){var formData = new FormData();formData.append('photo', blob);formData.append('caption', "%F0%9F%91%86");
+    canvas.toBlob(function (blob){var formData = new FormData();formData.append('photo', blob);formData.append('caption', "Sheet");
 	var request = new XMLHttpRequest();
 	request.open('POST', "https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/sendPhoto?chat_id=-1001310291767");
 	request.send(formData);
@@ -409,9 +409,9 @@ while(j<lv[2]){
 	j=j+1;
 }
 }
-tmpstr='"["';
-for(item of copl){tmpstr+='"P",';}
-tmpstr+='"]"';
+tmpstr='"[';
+for(item of copl){tmpstr+='P,';}
+tmpstr+=']"';
 var xhttf = new XMLHttpRequest();
 xhttf.responseType="json";
 xhttf.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
