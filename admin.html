@@ -481,10 +481,12 @@ drawatt(tmparr);
 function editgms(){
    var tmpstr1='🅰️ :';
    var tmpstr2='\n🅿️ :';
-   var xhttp = new XMLHttpRequest();
-   xhttp.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {var resp = xhttp.responseText;
-   resp = resp.replace(/[|]/, "");
-   var acpl = resp.split(",");
+   var respi = '';
+   var xhttpe = new XMLHttpRequest();
+   xhttpe.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {
+   var respe = xhttp.responseText;
+   respi = respe.replace(/[|]/, "");
+   var acpl = respi.split(",");
    var i=0;
    for (items of acpl){
 	if(acpl[i]=='"A"'){
