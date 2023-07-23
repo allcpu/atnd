@@ -409,30 +409,32 @@ while(j<lv[2]){
 	j=j+1;
 }
 }
+tmpstr='[';
+for(item of copl){tmpstr+='"P",';}
+tmpstr+=']';
 var xhttf = new XMLHttpRequest();
 xhttf.responseType="json";
-xhttf.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){if(xhttf.response.room1=="no"){setroom=1;}else if(xhttf.response.room2=="no"){setroom=2;}else if(xhttf.response.room3=="no"){setroom=3;}else if(xhttf.response.room4=="no"){setroom=4;}
+xhttf.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
+	if(xhttf.response.room1=="no"){setroom=1;}else if(xhttf.response.room2=="no"){setroom=2;}else if(xhttf.response.room3=="no"){setroom=3;}else if(xhttf.response.room4=="no"){setroom=4;}
 	//fetch(('https://fitbeau-5606d.firebaseio.com/room/inuse/room'+setroom+'.json'), {method: 'put',headers: { 'Content-Type': 'application/json' },body: "yes"});
 	var xhttt = new XMLHttpRequest();
-	xhttt.open("PUT", ('https://fitbeau-5606d.firebaseio.com/room/inuse/room'+setroom+'.json'), true);
-	xhttt.send("yes");
-	tmpstr='[';
-	for(item of copl){tmpstr+='"P",';}
-	tmpstr+=']';
+	xhttt.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
 	var xhtto = new XMLHttpRequest();
-	xhtto.open("PUT", ('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/.json'), true);
-	xhtto.send(tmpstr);
-	//fetch(('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/.json'), {method: 'PUT',headers: { 'Content-Type': 'application/json' },body: tmpstr});
-	
+	xhtto.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
 	urlfs = "https://allcpu.github.io/atnd/ats.html?"+setroom+"sss"+batches;
 	caption=encodeURI("Subject : "+document.getElementById("subji").value+"  Date : "+new Date().toLocaleDateString()+"  Time: "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value+"  Batches :"+bstr+"Roll No: "+rollary[0]+"-"+rollary[1]+"  Administered by: "+document.getElementById("facti").value+"\n"+urlfs);
-	
 	var xtthp = new XMLHttpRequest();
-	xtthp.responseType = 'json';
-	//xtthp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {msgid = this.response.result.message_id;}};
+	xtthp.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
+	remain();
+	}};
 	xtthp.open("GET", ("https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/sendmessage?chat_id=-1001310291767&text="+caption), true);
 	xtthp.send();
-	remain();
+	}};
+	xhtto.open("PUT", ('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/.json'), true);
+	xhtto.send(tmpstr);
+	}};
+	xhttt.open("PUT", ('https://fitbeau-5606d.firebaseio.com/room/inuse/room'+setroom+'.json'), true);
+	xhttt.send("yes");
 }};
 xhttf.open("GET", ("https://fitbeau-5606d.firebaseio.com/room/inuse/.json"), true);
 xhttf.send();
