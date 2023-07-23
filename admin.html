@@ -230,7 +230,7 @@ function sendimg(id){
     taintTest: false,
     type: "view",
   }).then(function (canvas) {
-  if (!canvas) {
+  if (canvas) {
     canvas.toBlob(function (blob){var formData = new FormData();formData.append('photo', blob);formData.append('caption', "Sheet");
 	var request = new XMLHttpRequest();
 	request.open('POST', "https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/sendPhoto?chat_id=-1001310291767");
@@ -443,7 +443,7 @@ xhttf.onreadystatechange = function(){if(this.readyState == 4 && this.status == 
 	var xhtto = new XMLHttpRequest();
 	xhtto.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
 	urlfs = "https://allcpu.github.io/atnd/ats.html?"+setroom+"sss"+batches;
-	caption=encodeURI("Subject : "+document.getElementById("subji").value+"  Date : "+new Date().toLocaleDateString()+"  Time: "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value+"  Batches :"+bstr+"Roll No: "+rollary[0]+"-"+rollary[1]+"  Administered by: "+document.getElementById("facti").value+"\n"+urlfs);
+	caption=encodeURI("Subject : "+document.getElementById("subji").value+"  Date : "+new Date().toLocaleDateString()+"  Time: "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value+"  Batches :"+bstr+" Roll No: "+rollary[0]+"-"+rollary[1]+"  Administered by: "+document.getElementById("facti").value+"\n"+urlfs);
 	var xtthp = new XMLHttpRequest();
 	xtthp.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
 	remain();
@@ -535,7 +535,7 @@ function endatts(){
   //fetch(('https://fitbeau-5606d.firebaseio.com/room/inuse/room'+setroom+'.json'), {method: 'put',headers: { 'Content-Type': 'application/json' },body: "no"});
   }};
   xhttm.open("PUT", ('https://fitbeau-5606d.firebaseio.com/room/inuse/room'+setroom+'.json'), true);
-  xhttm.send('no');
+  xhttm.send('"no"');
 }
 addEventListener("beforeunload", endatts);
 
