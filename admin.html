@@ -63,7 +63,7 @@
 .nokp{
   width:36px;
   height:36px;
-  background:url('abs.png');
+  background:url('pre.png');
   background-size:contain;
   border: 5px solid #d6bc14;
 }
@@ -124,8 +124,8 @@ table{
     height: 20px;
 }
 .apb{min-width:61px;min-height:25px;border-right:2px solid black;background-color:seashell;width:fit-content;text-align:center;padding:4px;font-size:30px;font-family: monospace;}
-.apbab{width:36px;height:36px;background:url('pre.png');background-size:contain;border:5px solid #d6bc14;}
-.apbpr{width:36px;height:36px;background:url('abs.png');background-size:contain;border:5px solid #d6bc14;}
+.apbab{width:36px;height:36px;background:url('abs.png');background-size:contain;border:5px solid #d6bc14;}
+.apbpr{width:36px;height:36px;background:url('pre.png');background-size:contain;border:5px solid #d6bc14;}
 </style>
 <script src="h2c.js"></script>
 <script src="jm.js"></script>
@@ -165,8 +165,8 @@ table{
 <button class="labtc" type="button" onclick="toolchk(2)">Check-All</button>
 </div>
 
-<label style="font-size:25px;">Enable multiple admins:-&nbsp&nbsp&nbsp&nbsp&nbspYes:<input name="yn" style="width:20px;height:20px;position:relative;top:3px" type="radio" id="mae">&nbsp&nbsp&nbsp&nbsp&nbspNo:<input name="yn" style="width:20px;height:20px;position:relative;top:3px" type="radio" id="mad"></label>
-<button type="button" style="display:block;width:50%;background-color:red;font-family:monospace;font-size:20px;text-align:center;padding:8px;margin:auto;" onclick='swal({title: "Are you sure?",text: "It will start Attendance System",icon: "warning",buttons: true,dangerMode: true,}).then((value) => {if(value){swal({icon: "success",title:"Done",text:"Attendance System Started"});crtsht();}else{swal({title:"Cancelled Process",icon:"info"});}});'>Create Sheet</button>
+<label style="font-size:25px;margin:auto;">Enable multiple admins:-&nbsp&nbsp&nbsp&nbsp&nbspYes:<input name="yn" style="width:20px;height:20px;position:relative;top:3px" type="radio" id="mae">&nbsp&nbsp&nbsp&nbsp&nbspNo:<input name="yn" style="width:20px;height:20px;position:relative;top:3px" type="radio" id="mad"></label>
+<button type="button" id="crsbut" style="display:block;width:50%;background-color:red;font-family:monospace;font-size:20px;text-align:center;padding:8px;margin:auto;" onclick='swal({title: "Are you sure?",text: "It will start Attendance System",icon: "warning",buttons: true,dangerMode: true,}).then((value) => {if(value){swal({icon: "success",title:"Done",text:"Attendance System Started"});crtsht();}else{swal({title:"Cancelled Process",icon:"info"});}});'>Create Sheet</button>
 <button type="button" style="display:block;width:50%;background-color:red;font-family:monospace;font-size:20px;text-align:center;padding:8px;margin:auto;margin-top:5px;" onclick='endatts()'>End Attendance System</button>
 <button type="button" style="display:block;width:50%;background-color:aqua;font-family:monospace;font-size:20px;text-align:center;padding:8px;margin:auto;margin-top:5px;" onclick='sendimg(document.getElementById("finallook"));'>Send Attendance</button>
 </div>
@@ -263,7 +263,7 @@ function abplch(){
 }
 
 function onclk(event) {
-    if(event.target.closest(".pre")){
+    if(event.target.closest(".pre") || event.target.closest(".nokp")){
        rollnoc = Math.floor(event.target.closest(".pa").getAttribute("rollno"));
 	   if(prel.includes(rollnoc)){
 	       
@@ -286,7 +286,7 @@ function onclk(event) {
 		 document.getElementById("tdap"+rollnoc).innerText="P";
 		 event.target.closest(".pre").style.border = "5px solid lime";
 	   }
-    }else if(event.target.closest(".abs")){
+    }else if(event.target.closest(".abs") || event.target.closest(".noka")){
        rollnoc = Math.floor(event.target.closest(".pa").getAttribute("rollno"));
 	   if(absl.includes(rollnoc)){
 	       
@@ -422,7 +422,7 @@ for(item of sbar){
 	  atbe.innerHTML+=attboxtbsf+(u+1)+attboxtbss;
 	  u++;
 	}
-	prebox.innerHTML+=apb1+item+apb3+item+apb4;
+	//prebox.innerHTML+=apb1+item+apb3+item+apb4;
 	if(multiadm){
 		pal.push("A");
 		absl.push(item);
@@ -440,6 +440,7 @@ for(item of sbar){
 i++;
 }
 document.getElementById("attboxtb"+u).closest(".main").style.height=((studcon%etrc)*48)+'px';
+abplch();
 }else if(lv.includes("custom")){
 //lv=["custom",1,26] for 1-25
 j=lv[1];
@@ -495,6 +496,7 @@ msgid = document.getElementById("msgidb").innerText;
 document.getElementById("help").style.display="block";
 document.getElementById("attbox").style.display="flex";
 document.getElementById("atctrl").style.display="block";
+document.getElementById("crsbut").disabled = true;
 editgms();										       
 }};
 xhttp.open("GET", ("https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/sendmessage?chat_id=-1001310291767&text=loading.."), true);
