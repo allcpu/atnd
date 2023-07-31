@@ -51,6 +51,20 @@
   height:36px;
   background:url('abs.png');
   background-size:contain;
+  border: 5px solid red;
+}
+.noka{
+  width:36px;
+  height:36px;
+  background:url('abs.png');
+  background-size:contain;
+  border: 5px solid #d6bc14;
+}
+.nokp{
+  width:36px;
+  height:36px;
+  background:url('abs.png');
+  background-size:contain;
   border: 5px solid #d6bc14;
 }
 .imgtr{
@@ -151,6 +165,7 @@ table{
 <button class="labtc" type="button" onclick="toolchk(2)">Check-All</button>
 </div>
 
+<label style="font-size:25px;">Enable multiple admins:-&nbsp&nbsp&nbsp&nbsp&nbspYes:<input name="yn" style="width:20px;height:20px;position:relative;top:3px" type="radio" id="mae">&nbsp&nbsp&nbsp&nbsp&nbspNo:<input name="yn" style="width:20px;height:20px;position:relative;top:3px" type="radio" id="mad"></label>
 <button type="button" style="display:block;width:50%;background-color:red;font-family:monospace;font-size:20px;text-align:center;padding:8px;margin:auto;" onclick='swal({title: "Are you sure?",text: "It will start Attendance System",icon: "warning",buttons: true,dangerMode: true,}).then((value) => {if(value){swal({icon: "success",title:"Done",text:"Attendance System Started"});crtsht();}else{swal({title:"Cancelled Process",icon:"info"});}});'>Create Sheet</button>
 <button type="button" style="display:block;width:50%;background-color:red;font-family:monospace;font-size:20px;text-align:center;padding:8px;margin:auto;margin-top:5px;" onclick='endatts()'>End Attendance System</button>
 <button type="button" style="display:block;width:50%;background-color:aqua;font-family:monospace;font-size:20px;text-align:center;padding:8px;margin:auto;margin-top:5px;" onclick='sendimg(document.getElementById("finallook"));'>Send Attendance</button>
@@ -197,6 +212,7 @@ table{
 </div>
 </div>
 <div style="display:none;" id="msgidb"></div>
+<button type="button" style="display:block;width:50%;background-color:red;font-family:monospace;font-size:20px;text-align:center;padding:8px;margin:auto;" onclick='chngsht();'>Change Sheet</button>
 <script>
 //https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/sendmessage?chat_id=-1001310291767&text=bye
 
@@ -220,8 +236,8 @@ var arr = [[],[1,"AADHIGONDA PUNEETH",8121335450],[2,"AASHRITHA THOUDISETTI",739
 
 var resp, rollnoc, prel=[], absl=[], copl=[], xhttp, msgid, msgidg, msgidl, etrc, studcon, arrol, atbe=document.getElementById("attbox"), absbox=document.getElementById("absudbox"), prebox=document.getElementById("presudbox"), batches, urlfs, caption, bstr;
 var rrrrr='', bps, pv=1, nt=42, i=1, j=1, tmparr, setroom, rollary=[], pal=[];
-var attboxtbsf='<table class="main" onclick="onclk(event);"><thead><tr><td>Roll No:</td><td>Button</td></tr></thead><tbody id="attboxtb', attboxtbss='"></tbody></table>', attboxtr1='<tr class="each"><td class="rn" onclick="info(this.innerText);">', attboxtr2='</td><td class="pa" rollno=', attboxtr3=' id="attcon', attboxtr4='"><div class="pre"></div><div class="abs"></div></td></tr>', apb1='<div class="flexc"><div class="apb" onclick="info(this.innerText)">', apb2='</div><div class="apbab" id="apbstu', apb3='</div><div class="apbpr" id="apbstu', apb4='"></div></div>';
-//var 
+var attboxtbsf='<table class="main" onclick="onclk(event);"><thead><tr><td>Roll No:</td><td>Button</td></tr></thead><tbody id="attboxtb', attboxtbss='"></tbody></table>', attboxtr1='<tr class="each"><td class="rn" onclick="info(this.innerText);">', attboxtr2='</td><td class="pa" rollno=', attboxtr3=' id="attcon', attboxtr4='"><div class="pre"></div><div class="noka"></div></td></tr>', attboxtr5='"><div class="nokp"></div><div class="abs"></div></td></tr>', apb1='<div class="flexc"><div class="apb" onclick="info(this.innerText)">', apb2='</div><div class="apbab" id="apbstu', apb3='</div><div class="apbpr" id="apbstu', apb4='"></div></div>';
+var multiadm=false, msguif='';
 
 
 function sendimg(id){
@@ -264,7 +280,7 @@ function onclk(event) {
 		 }
 		var xhttm = new XMLHttpRequest();
 		xhttm.open("PUT", ('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/.json'), true);
-		xhttm.send('"P"');
+		xhttm.send(tmpstr);
 		 //fetch(('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/'+copl.indexOf(rollnoc)+'/.json'),{method:'PUT',headers:{ 'Content-Type': 'application/json' },body:'"P"'});
 		 abplch();
 		 document.getElementById("tdap"+rollnoc).innerText="P";
@@ -409,9 +425,9 @@ for(item of sbar){
 	prebox.innerHTML+=apb1+item+apb3+item+apb4;
 	if(multiadm){
 		pal.push("A");
-		prel.push(item);
+		absl.push(item);
 		document.getElementById("attentab"+i).innerHTML+='<tr class="dumy"><td class="imgtr">'+item+'</td><td id="tdap'+item+'" class="imgta">A</td></tr>';
-		document.getElementById("attboxtb"+u).innerHTML+=attboxtr1+item+attboxtr2+item+attboxtr3+item+attboxtr4;
+		document.getElementById("attboxtb"+u).innerHTML+=attboxtr1+item+attboxtr2+item+attboxtr3+item+attboxtr5;
 	}else{
 		pal.push("P");
 		prel.push(item);
@@ -438,7 +454,7 @@ while(j<lv[2]){
 }
 }
 tmpstr='"[';
-for(item of copl){tmpstr+='P,';}
+for(item of copl){if(multiadm){tmpstr+='A,';}else{tmpstr+='P,';}}
 tmpstr+=']"';
 var xhttf = new XMLHttpRequest();
 xhttf.responseType="json";
@@ -453,6 +469,7 @@ xhttf.onreadystatechange = function(){if(this.readyState == 4 && this.status == 
 	caption=encodeURI("Subject : "+document.getElementById("subji").value+"  Date : "+new Date().toLocaleDateString()+"  Time: "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value+"  Batches :"+bstr+" Roll No: "+rollary[0]+"-"+rollary[1]+"  Administered by: "+document.getElementById("facti").value+"\n"+urlfs);
 	var xtthp = new XMLHttpRequest();
 	xtthp.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
+	msguif=this.response.result.message_id;
 	remain();
 	}};
 	xtthp.open("GET", ("https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/sendmessage?chat_id=-1001310291767&text="+caption), true);
@@ -484,7 +501,14 @@ xhttp.send();
 }
 
 function crtsht(){
-
+if(document.getElementById('mae').checked){
+   multiadm=true;
+}else if(document.getElementById('mad').checked){
+   multiadm=false;
+}else{
+   swal("Error","Multiple Admin not defined","error");
+   return;
+}
 document.getElementById("atctrl").style.display="none";
 tmparr=[];
 rollary=[0,0];
@@ -537,6 +561,35 @@ function editgms(){
    xhttpe.open("GET", ('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/.json'), true);
    xhttpe.send();
 }
+function refreshl(){
+   var respi = '';
+   var xhttpe = new XMLHttpRequest();
+   xhttpe.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {
+   var respe = xhttpe.responseText;
+   respe = respe.replace('[', "");
+   respe = respe.replace(']', "");
+   respi = respe.replace('"', "");
+   var acpl = respi.split(",");
+   var i=0;
+   for (items of acpl){
+	if(acpl[i]=='A'){
+		absl.push(i);
+		pal[i]="A";
+		document.getElementById("attcon"+copl[i]).getElementsByClassName('pre')[0].style.border='5px solid #d6bc14';
+		document.getElementById("attcon"+copl[i]).getElementsByClassName('abs')[0].style.border='5px solid red';
+	}else if(acpl[i]=='P'){
+		prel.push(i);
+		pal[i]="P";
+		document.getElementById("attcon"+copl[i]).getElementsByClassName('pre')[0].style.border='5px solid lime';
+		document.getElementById("attcon"+copl[i]).getElementsByClassName('abs')[0].style.border='5px solid #d6bc14';
+	}
+	i++;
+   }
+   abplch();
+  }};								  
+   xhttpe.open("GET", ('https://fitbeau-5606d.firebaseio.com/room/room'+setroom+'/apcl/.json'), true);
+   xhttpe.send();
+}
 function endatts(){
   var xhttm = new XMLHttpRequest();
   xhttm.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {
@@ -548,6 +601,19 @@ function endatts(){
 }
 addEventListener("beforeunload", endatts);
 
+function chngsht(){
+	urlfs = "https://allcpu.github.io/atnd/ats.html?"+setroom+"sss"+batches;
+	caption=encodeURI("Subject : "+document.getElementById("subji").value+"  Date : "+new Date().toLocaleDateString()+"  Time: "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value+"  Batches :"+bstr+" Roll No: "+rollary[0]+"-"+rollary[1]+"  Administered by: "+document.getElementById("facti").value+"\n"+urlfs);
+	var xtthp = new XMLHttpRequest();
+	xtthp.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
+		document.getElementById("subjfld").innerText="Subject : "+document.getElementById("subji").value;
+		document.getElementById("timefld").innerText="Time : "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value;
+		document.getElementById("factfld").innerText= "Administered by: "+document.getElementById("facti").value;
+	}};
+	xtthp.open("GET", ("https://api.telegram.org/bot5983894147:AAF31AIhn2NAqrlejK-1BDvaZNoj1a2o4N0/editMessageText?chat_id=-1001310291767&message_id="+msguif+"&text="+caption), true);
+	xtthp.send();
+}
+	
 function info(rn){
   swal({title:(rn+" is:"),icon:"info",text:(arr[Number(rn)][1])});
 }
