@@ -197,7 +197,8 @@ studcon+=30;
    var xhttp = new XMLHttpRequest();
    xhttp.onreadystatechange = function(){if (this.readyState == 4 && this.status == 200) {
    var resp = xhttp.responseText;
-   resp = resp.replace(/[|]/, "");
+   resp = resp.replace("[", "");
+   resp = resp.replace("]", "");
    var acpl = resp.split(",");
    var i=0, item;
    prebox.innerHTML='';
