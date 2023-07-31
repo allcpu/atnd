@@ -468,6 +468,7 @@ xhttf.onreadystatechange = function(){if(this.readyState == 4 && this.status == 
 	urlfs = "https://allcpu.github.io/atnd/ats.html?"+setroom+"sss"+batches;
 	caption=encodeURI("Subject : "+document.getElementById("subji").value+"  Date : "+new Date().toLocaleDateString()+"  Time: "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value+"  Batches :"+bstr+" Roll No: "+rollary[0]+"-"+rollary[1]+"  Administered by: "+document.getElementById("facti").value+"\n"+urlfs);
 	var xtthp = new XMLHttpRequest();
+	xtthp.responseType="json";
 	xtthp.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
 	msguif=this.response.result.message_id;
 	remain();
