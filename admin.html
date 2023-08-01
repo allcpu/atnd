@@ -467,7 +467,7 @@ xhttf.onreadystatechange = function(){if(this.readyState == 4 && this.status == 
 	var xhtto = new XMLHttpRequest();
 	xhtto.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
 	urlfs = "https://allcpu.github.io/atnd/ats.html?"+setroom+"sss"+batches;
-	caption=encodeURI("Subject : "+document.getElementById("subji").value+"  Date : "+new Date().toLocaleDateString()+"  Time: "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value+"  Batches :"+bstr+" Roll No: "+rollary[0]+"-"+rollary[1]+"  Administered by: "+document.getElementById("facti").value+"\n"+urlfs);
+	caption=encodeURI("Subject : "+document.getElementById("subji").value+"  Date : "+new Date().toDateString()+"  Time: "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value+"  Batches :"+bstr+" Roll No: "+rollary[0]+"-"+rollary[1]+"  Administered by: "+document.getElementById("facti").value+"\n"+urlfs);
 	var xtthp = new XMLHttpRequest();
 	xtthp.responseType="json";
 	xtthp.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
@@ -528,7 +528,7 @@ if(document.getElementById("cd2").checked){tmparr.push("d2");if(rollary[0]==0){r
 bstr=tmpstr;
 document.getElementById("subjfld").innerText="Subject : "+document.getElementById("subji").value;
 document.getElementById("timefld").innerText="Time : "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value;
-document.getElementById("datefld").innerText= "Date : "+new Date().toLocaleDateString();
+document.getElementById("datefld").innerText= "Date : "+new Date().toDateString();
 document.getElementById("rollfld").innerText= "Roll No : "+rollary[0]+"-"+rollary[1];
 document.getElementById("factfld").innerText= "Administered by: "+document.getElementById("facti").value;
 if((tmparr[tmparr.length - 1])!=="many"){document.getElementById("bachfld").innerText= "Batches :"+bstr;}else{document.getElementById("bachfld").innerText= "Batches : ";}
@@ -606,7 +606,7 @@ addEventListener("beforeunload", endatts);
 
 function chngsht(){
 	urlfs = "https://allcpu.github.io/atnd/ats.html?"+setroom+"sss"+batches;
-	caption=encodeURI("Subject : "+document.getElementById("subji").value+"  Date : "+new Date().toLocaleDateString()+"  Time: "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value+"  Batches :"+bstr+" Roll No: "+rollary[0]+"-"+rollary[1]+"  Administered by: "+document.getElementById("facti").value+"\n"+urlfs);
+	caption=encodeURI("Subject : "+document.getElementById("subji").value+"  Date : "+new Date().toDateString()+"  Time: "+document.getElementById("strtimpic").value+"-"+document.getElementById("endtimpic").value+"  Batches :"+bstr+" Roll No: "+rollary[0]+"-"+rollary[1]+"  Administered by: "+document.getElementById("facti").value+"\n"+urlfs);
 	var xtthp = new XMLHttpRequest();
 	xtthp.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200){
 		document.getElementById("subjfld").innerText="Subject : "+document.getElementById("subji").value;
